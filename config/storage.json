@@ -1,0 +1,29 @@
+{
+  "target_fps": 5.0,
+  "window": {
+    "length": 30,
+    "stride": 5,
+    "comment": "30 frames @5fps = 6s windows, 1s stride. Built within a single segment only -> never crosses a cut or half-time."
+  },
+  "smoothing": {
+    "savgol_window": 11,
+    "savgol_polyorder": 2,
+    "comment": "Savitzky-Golay on velocity, per slot per segment, at detection fps before downsampling. Never spans a cut."
+  },
+  "possession": {
+    "radius_m": 2.0,
+    "comment": "Ball possession = nearest player within this radius of the ball; flagged per frame on that player's row."
+  },
+  "normalisation": {
+    "pos_x_m": 105.0,
+    "pos_y_m": 68.0,
+    "player_max_speed_mps": 10.0,
+    "ball_max_speed_mps": 35.0
+  },
+  "validation": {
+    "holdout_fraction": 0.2,
+    "comment": "GSR: last fraction of clips. Metrica: last fraction of each segment's timeline (windows crossing the boundary are dropped, so train and val never share a frame)."
+  },
+  "style_chunk_secs": 60,
+  "style_chunk_comment": "Metrica only: per-team style knobs are computed per 60s chunk (not per match) so FiLM conditioning sees many diverse style samples."
+}
