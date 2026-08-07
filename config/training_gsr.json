@@ -1,0 +1,43 @@
+{
+  "model": {
+    "feature_dim": 24,
+    "embed_dim": 128,
+    "n_heads": 4,
+    "dropout": 0.1,
+    "n_blocks": 3,
+    "window": 30,
+    "n_agents": 23,
+    "n_style": 4
+  },
+  "loss": {
+    "traj_weight": 1.0,
+    "style_weight": 0.5,
+    "event_weight": 0.1,
+    "ball_weight": 2.0,
+    "presence_mask_threshold": 0.2,
+    "gk_anchor_weight": 0.15,
+    "gk_goal_dist": 0.15,
+    "spacing_weight": 0.0,
+    "spacing_min_m": 2.5,
+    "_note": "light GK-anchor only: holds GKs near goal without freezing the field. The spacing prior is OFF (it caused a static-equilibrium freeze / corner-pinning). Seeded-from-real-clip sim is in-distribution and stays dynamic."
+  },
+  "optim": {
+    "lr": 3e-4,
+    "weight_decay": 0.01,
+    "betas": [0.9, 0.98],
+    "grad_clip": 1.0
+  },
+  "train": {
+    "epochs": 40,
+    "batch_size": 64,
+    "val_every": 5,
+    "rollout": {
+      "enabled": false,
+      "p_max": 0.5,
+      "start_epoch": 10,
+      "oob_weight": 0.5,
+      "speed_weight": 0.2,
+      "comment": "M4 scheduled sampling: ramp self-prediction prob to p_max from start_epoch; physics priors on out-of-bounds + speed."
+    }
+  }
+}
